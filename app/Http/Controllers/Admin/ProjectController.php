@@ -179,7 +179,7 @@ class ProjectController extends Controller
         se non è stato "checkato" niente allora tolgo tutte le relazioni con il project
         */
         if (Arr::exists($data, 'technologies')) $project->technologies()->sync($data['technologies']);
-        else $project->technologies()->detach();
+        else if (count($project->technologies)) $project->technologies()->detach();
 
         return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('message', "Modifiche al progetto '$project->name' apportate con successo");
     }
@@ -191,6 +191,9 @@ class ProjectController extends Controller
     {
         // Controlliamo se c'è un'immagine nel progetto da eliminare e la cancello
         if ($project->image) Storage::delete($project->image);
+
+        // Controllo se ho relazioni tra progetto e tecnologie e nel caso le smonto
+        if (count($project->technologies)) $project->technologies()->detach();
 
         // prendo il progetto e lo elimino
         $project->delete();

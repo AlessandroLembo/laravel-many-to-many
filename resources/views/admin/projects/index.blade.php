@@ -4,10 +4,15 @@
 
 @section('content')
     <header>
-        <div class="d-flex align-items-center justify-content-around">
+        <div class="d-flex align-items-center justify-content-between">
             <h1 class="text-center my-5 fs-1">Projects</h1>
-            <a href="{{ route('admin.projects.create') }}" class="btn btn-success">Aggiungi Progetto</a>
+            <div>
+                <a href="{{ route('admin.projects.create') }}" class="btn btn-success">Aggiungi Progetto</a>
+                <a href="{{ route('admin.types.create') }}" class="btn btn-secondary">Crea nuovo tipo</a>
+            </div>
+            
         </div>
+
         <div class="input-group my-4">
             <form action="{{ route('admin.projects.index') }}" method="GET">
                 <div class="input-group">
@@ -21,7 +26,8 @@
             </form>
         </div>
        
-
+    </header>
+    
         <table class="table">
             <thead>
                 <tr>
@@ -91,5 +97,4 @@
                 {{-- Stampo il paginatore --}}
                 {{ $projects->links() }}
         </div>
-    </header>
 @endsection

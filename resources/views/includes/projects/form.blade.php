@@ -70,13 +70,17 @@
 </div>
 
 <div class="row mt-3">
-    <div class="col-6">
+    <div class="col-6 d-flex">
+        @foreach ($technologies as $technology )
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
+            {{-- Uso di un prefisso nell'id dell'input e nel for del label per distiguere il checkbox da altri che potrei inserire --}}
+            <input class="form-check-input" type="checkbox" value="" id="technology-{{ $technology->id }}">
+            <label class="form-check-label me-3" for="technology-{{ $technology->id }}"> 
+              {{ $technology->label }}
             </label>
-          </div>
+        </div>
+        @endforeach
+   
     </div>
     
     <div class="col-6 d-flex justify-content-end">

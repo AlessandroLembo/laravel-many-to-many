@@ -49,3 +49,5 @@ Route::middleware('auth')->prefix('/profile')->name('profile.')->group(function 
 });
 
 require __DIR__ . '/auth.php';
+
+Route::resource('admin/technologies', App\Http\Controllers\Admin\TechnologyController::class, ['as' => 'admin']);

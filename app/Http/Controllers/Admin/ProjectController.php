@@ -96,6 +96,9 @@ class ProjectController extends Controller
 
         $new_project->save();
 
+        // Dopo che ho creato il progetto, posso relazionare il progetto alle tecnologie
+        if (Arr::exists($data, 'technologies')) $new_project->technologies()->attach($data['technologies']);
+
         return to_route('admin.projects.show', $new_project->id)->with('type', 'success')->with('Creazione progetto andata a buon fine');
     }
 

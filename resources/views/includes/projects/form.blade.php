@@ -74,7 +74,12 @@
         @foreach ($technologies as $technology )
         <div class="form-check">
             {{-- Uso di un prefisso nell'id dell'input e nel for del label per distiguere il checkbox da altri che potrei inserire --}}
-            <input class="form-check-input" type="checkbox" id="technology-{{ $technology->id }}" value="{{ $technology->id }}" name="technologies[]" @if(in_array($technology->id, old('technologies', []))) checked @endif>
+            <input class="form-check-input" type="checkbox" id="technology-{{ $technology->id }}" value="{{ $technology->id }}" name="technologies[]" 
+            
+            {{--  --}}
+            @if(in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif>
+
+
             <label class="form-check-label me-3" for="technology-{{ $technology->id }}"> 
               {{ $technology->label }}
             </label>

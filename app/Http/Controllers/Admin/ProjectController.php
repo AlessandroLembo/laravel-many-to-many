@@ -118,7 +118,10 @@ class ProjectController extends Controller
         $types = Type::orderBy('label')->get();
         $technologies = Technology::orderBy('id')->get();
 
-        return view('admin.projects.edit', compact('project', 'technologies', 'types'));
+        // Dalla collection, usando i metodi pluck('id) e toArray ottengo un array di id
+        $project_technologies = $project->technologies->pluck('id')->toArray();
+
+        return view('admin.projects.edit', compact('project', 'technologies', 'types', 'project_technologies'));
     }
 
     /**
@@ -170,6 +173,13 @@ class ProjectController extends Controller
         $project->is_published = Arr::exists($data, 'is_published');
 
         $project->save();
+
+        /* Assegno le modifiche che riguardano le tecnologie. Faccio un controllo per vedere se
+        è stata scelta almeno una tecnologia (altrimenti non arriva nulla): se si allora sincronizza, 
+        se non è stato "checkato" niente allora tolgo tutte le relazioni con il project
+        */
+        if (Arr::exists($data, 'technologies')) $project->technologies()->sync($data['technologies']);
+        else $project->technologies()->detach();
 
         return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('message', "Modifiche al progetto '$project->name' apportate con successo");
     }

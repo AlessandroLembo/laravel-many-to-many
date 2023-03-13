@@ -118,7 +118,9 @@ class ProjectController extends Controller
         $types = Type::orderBy('label')->get();
         $technologies = Technology::orderBy('id')->get();
 
-        // Dalla collection, usando i metodi pluck('id) e toArray ottengo un array di id
+        /* Dalla collection, usando i metodi pluck('id) e toArray ottengo un array di id che corrispondono
+           alle technolgie che questo progetto aveva dall'ultima modifica.
+        */
         $project_technologies = $project->technologies->pluck('id')->toArray();
 
         return view('admin.projects.edit', compact('project', 'technologies', 'types', 'project_technologies'));

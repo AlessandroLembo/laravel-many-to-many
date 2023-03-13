@@ -76,7 +76,11 @@
             {{-- Uso di un prefisso nell'id dell'input e nel for del label per distiguere il checkbox da altri che potrei inserire --}}
             <input class="form-check-input" type="checkbox" id="technology-{{ $technology->id }}" value="{{ $technology->id }}" name="technologies[]" 
             
-            {{--  --}}
+            {{-- Con l'attributo checked distiguiamo il form della pagina create da quella dell'edit --}}
+            {{-- Con in_array conrolliamo se l'id del singolo checkbox è presente nell'array, secondo parametro in quale array lo cerchiamo--}}
+            {{-- Se invio un form e ho degli errori, rimangono checkati i valori selezionati; se invece entro in una pagina di modifica di un progetto --}}
+            {{-- trovo selezionati i checkbox dell'array project_technologies che corrispondono a quelli dell'ultima modifica --}}
+            {{-- Terza ipotesi, entro in una pagina per creare un nuovo progetto (nella create) guardo in array vuoto, situazione di tutti checkbox non selezionati--}}
             @if(in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif>
 
 

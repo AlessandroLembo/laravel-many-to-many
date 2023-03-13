@@ -18,6 +18,17 @@
             <div class="d-flex flex-column align-items-start">
                 <h2>{{ $project->slug }}</h2>
                 <p>{{ $project->description }}</p>
+                <p class="fs-4"><strong>Tecnologie:</strong> 
+                 
+                    @forelse ($project->technologies as $technology )
+                    <span class="text-{{ $technology->color }} fw-bold">
+                      {{ $technology->label }} @if (!$loop->last), @else. @endif
+                    @empty
+                    
+                    <span>Nessuna Tecnologia selezionata</span>
+                    @endforelse
+                  </span>
+                </p>
                 <p class="fs-4"><strong>Progetto per:</strong> {{ $project->project_for }}</p>
                 @if ($project->type?->label)
                    <p class="fs-4"><strong>Tipo progetto:</strong> {{ $project->type?->label }}</p>

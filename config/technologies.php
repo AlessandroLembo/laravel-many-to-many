@@ -23,7 +23,7 @@ return [
     ],
     [
         "label" => "SASS",
-        "color" => "danger-emphasis",
+        "color" => "danger",
     ],
     [
         "label" => "PHP",

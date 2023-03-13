@@ -29,6 +29,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
                     <th scope="col">Poject for</th>
+                    <th scope="col">Technologies</th>
                     <th scope="col">Platform</th>
                     <th scope="col">Stato</th>
                     <th></th>
@@ -41,6 +42,13 @@
                         <td>{{ $project->name }}</td>
                         <td>{{ $project->type?->label }}</td>
                         <td>{{ $project->project_for }}</td>
+                        <td>
+                            @forelse ($project->technologies as $technology)
+                                <span class="badge bg-{{ $technology->color }}">{{ $technology->label }}</span>
+                            @empty
+                                
+                            @endforelse
+                        </td>
                         <td>{{ $project->web_platform }}</td>
                         <td>
                             <form action="{{ route('admin.projects.toggle', $project->id) }}" method="POST">
@@ -72,13 +80,13 @@
                     </tr>
                 @empty
                     <tr>
-                        <th scope="row" colspan="6" class="text-center">Non ci sono progetti</td>
+                        <th scope="row" colspan="8" class="text-center">Non ci sono progetti</td>
                     </tr>
                 @endforelse
 
             </tbody>
         </table>
-        <hr>
+
         <div class="d-flex justify-content-end">
                 {{-- Stampo il paginatore --}}
                 {{ $projects->links() }}

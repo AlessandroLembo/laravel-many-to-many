@@ -70,7 +70,16 @@
 </div>
 
 <div class="row mt-3">
-    <div class="col-12 d-flex justify-content-end">
+    <div class="col-6">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Default checkbox
+            </label>
+          </div>
+    </div>
+    
+    <div class="col-6 d-flex justify-content-end">
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="is_published" name="is_published" @if(old('is_published', $project->is_published)) checked @endif>
             <label class="form-check-label" for="is_published">Pubblicato</label>

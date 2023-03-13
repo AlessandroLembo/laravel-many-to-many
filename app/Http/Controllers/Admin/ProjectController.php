@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Technology;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
@@ -40,7 +41,9 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $types = Type::orderBy('label')->get();
-        return view('admin.projects.create', compact('project', 'types'));
+        $technologies = Technology::orderBy('id')->get();
+        // @dd($technologies); controllo se mi arriva la lista delle tecnologie e la mando alla pagina del formS
+        return view('admin.projects.create', compact('project', 'technologies', 'types'));
     }
 
     /**
@@ -107,8 +110,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::orderBy('label')->get();
+        $technologies = Technology::orderBy('id')->get();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'technologies', 'types'));
     }
 
     /**

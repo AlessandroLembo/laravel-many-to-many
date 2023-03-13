@@ -22,6 +22,10 @@ return [
         "color" => "success",
     ],
     [
+        "label" => "SASS",
+        "color" => "danger-emphasis",
+    ],
+    [
         "label" => "PHP",
         "color" => "primary",
     ],

@@ -60,11 +60,14 @@ class ProjectController extends Controller
             'project_for' => 'string',
             'web_platform' => 'nullable|string',
             'duration_project' => 'nullable|string',
+            'technologies' => 'nullable|exists:technologies,id'
         ], [
             'name.required' => 'Il nome del progetto è obbligatorio',
             'name.unique' => "Esiste già un progetto con il nome $request->name",
             'image.image' => 'Il file caricato deve essere di tipo immagine',
-            'type_id' => 'Type non valido'
+            'project_for' => 'Non hai inserito alcun progetto',
+            'type_id' => 'Type non valido',
+            'technologies' => 'Le tecnologie selezionate non sono valide'
 
         ]);
 
@@ -129,11 +132,15 @@ class ProjectController extends Controller
             'project_for' => 'string',
             'web_platform' => 'nullable|string',
             'duration_project' => 'nullable|string',
+            'technologies' => 'nullable|exists:technologies,id'
+
         ], [
             'name.required' => 'Il nome del progetto è obbligatorio',
             'name.unique' => "Esiste già un progetto con il nome $request->name",
             'image.image' => 'Il file caricato deve essere di tipo immagine',
-            'type_id' => 'Type npn valido'
+            'type_id' => 'Type npn valido',
+            'project_for' => 'Non hai inserito alcun progetto',
+            'technologies' => 'Le tecnologie selezionate non sono valide'
 
         ]);
 

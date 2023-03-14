@@ -23,10 +23,12 @@
    
 </div>    
 
-<div class="d-flex">
-    <a href="{{ route('admin.technologies.index') }}" class="btn btn-secondary me-2 px-4 py-2">Back</a>
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <a href="{{ route('admin.projects.index') }}" class="btn btn-primary px-4 py-2">Back to Projects</a>
+        <a href="{{ route('admin.technologies.index') }}" class="btn btn-secondary me-2 px-4 py-2">Go to Tech</a>
+    </div>    
     <button type="submit" class="btn btn-success px-4 py-2">Salva</button>
-
 </div>
 
 </form>

@@ -24,10 +24,9 @@
                 class="form-control btn btn-outline-primary justify-content-end align-items-center d-block">Cambia
                 Immagine</button>
 
-            <input type="file" class="form-control d-none image" name="image"
-                value="{{ old('image', $project->image) }}">
+                <input type="file" class="form-control d-none image" name="image">
         @else
-            <input type="file" class="form-control image" name="image" value="{{ old('image', $project->image) }}">
+            <input type="file" class="form-control image" name="image">
         @endif
     </div>
     <div class="col-md-1">

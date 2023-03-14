@@ -1,5 +1,8 @@
-{{-- Dopo aver creato un nuovo progetto nel metodo create e poi in base al fatto che esiste o meno (id) col form distinguo le route --}}
-{{-- Se dal mio form volgio inviare dei files devo utlizzare l'attributo "enctype" con valore "multiform/form-data" --}}
+{{-- Dopo aver creato un nuovo progetto nel metodo create e in base al fatto 
+    che esiste o meno (id) col form distinguo le route; se dal mio form volgio inviare 
+    dei files devo utlizzare l'attributo "enctype" con valore "multiform/form-data".
+Il progetto esiste in entrambi i casi, con exists controllo se ha l'id vado a modificarlo, 
+se no significa che sono sulla create --}}
 @if ($project->exists)
     <form class="row g-3" action="{{ route('admin.projects.update', $project->id) }}" method="POST"
         enctype="multipart/form-data" novalidate>
@@ -9,7 +12,6 @@
             novalidate>
 @endif
 
-{{-- <form class="row g-3" action="{{ route('admin.projects.store') }}" method="POST"> --}}
 @csrf
 <div class="row">
     <div class="col-md-5">
@@ -39,6 +41,8 @@
         <select class="form-select" name="type_id" id="type_id">
             <option value="">Nothing selected</option>
             @foreach ($types as $type)
+                {{-- giro sull'array types, mantengo il valore selezionato con old in caso di errore 
+                e assegno l'attributo selected all'option che l'id che corrisponde al type_id della tabella Projects --}}
                 <option @if (old('type_id', $project->type_id) == $type->id) selected @endif value="{{ $type->id }}">
                     {{ $type->label }}</option>
             @endforeach
@@ -75,11 +79,11 @@
             {{-- Uso di un prefisso nell'id dell'input e nel for del label per distiguere il checkbox da altri che potrei inserire --}}
             <input class="form-check-input" type="checkbox" id="technology-{{ $technology->id }}" value="{{ $technology->id }}" name="technologies[]" 
             
-            {{-- Con l'attributo checked distiguiamo il form della pagina create da quella dell'edit --}}
-            {{-- Con in_array conrolliamo se l'id del singolo checkbox è presente nell'array, secondo parametro in quale array lo cerchiamo--}}
-            {{-- Se invio un form e ho degli errori, rimangono checkati i valori selezionati; se invece entro in una pagina di modifica di un progetto --}}
-            {{-- trovo selezionati i checkbox dell'array project_technologies che corrispondono a quelli dell'ultima modifica --}}
-            {{-- Terza ipotesi, entro in una pagina per creare un nuovo progetto (nella create) guardo in array vuoto, situazione di tutti checkbox non selezionati--}}
+            {{-- Con l'attributo checked distiguiamo il form della pagina create da quella dell'edit 
+            Con in_array conrolliamo se l'id del singolo checkbox è presente nell'array, secondo parametro in quale array lo cerchiamo
+            Se invio un form e ho degli errori, rimangono checkati i valori selezionati; se invece entro in una pagina di modifica di un progetto
+            trovo selezionati i checkbox dell'array project_technologies che corrispondono a quelli dell'ultima modifica 
+            Terza ipotesi, entro in una pagina per creare un nuovo progetto (nella create) guardo in array vuoto, situazione di tutti checkbox non selezionati--}}
             @if(in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif>
 
 

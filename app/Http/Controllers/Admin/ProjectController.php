@@ -18,7 +18,10 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        // Raccologo in filter ciò che mi arriva in request dall'invio del form della select
+        /* Raccologo in filter il value della select che mi arriva in request dall'invio del form.
+           'filter' corrisponde al name della select;
+           Con il metodo query su $request chiedo di fornirmi il valore selezionato nella select
+        */
         $filter = $request->query('filter');
 
         $query = Project::orderby('id');
@@ -30,7 +33,6 @@ class ProjectController extends Controller
         }
 
         $projects = $query->simplePaginate(3); // con questo metodo mi arrivano in pagina i link Next e Prev
-
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -39,10 +41,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        // Per rendere comune il form per creazione e modifica, istanzio un nuovo progetto
         $project = new Project();
         $types = Type::orderBy('label')->get();
         $technologies = Technology::orderBy('id')->get();
-        // @dd($technologies); controllo se mi arriva la lista delle tecnologie e la mando alla pagina del formS
+        // @dd($technologies); controllo se mi arriva la lista delle tecnologie e la mando alla pagina del form
         return view('admin.projects.create', compact('project', 'technologies', 'types'));
     }
 
@@ -78,7 +81,7 @@ class ProjectController extends Controller
         // controllo se mi arriva un file immagine nell'array data (potrei usare anche una funzione datami dagli helper di laravel)
         if (array_key_exists('image', $data)) {
             /* se sono qui c'è l'immagine e salvo l'url nello Storage con una Facades:
-               primo argomento cartella dove voglio salvare,
+               primo argomento tabella dove voglio salvare,
                secondo argomento cosa voglio salvare.
             */
             $image_url = Storage::put('projects', $data['image']);
@@ -158,8 +161,9 @@ class ProjectController extends Controller
             // Se c'è già un'immagine la cancello per lasciar spazio alla nuova che voglio caricare
             if ($project->image) Storage::delete($project->image);
 
-            /* se sono qui c'è l'immagine e salvo l'url nello Storage con una Facades:
-               primo argomento cartella dove voglio salvare,
+            /* Dopo aver cancellato, metto la nuova immagine
+               salvo l'url nello Storage con una Facades:
+               primo argomento tabella dove voglio salvare,
                secondo argomento cosa voglio salvare.
             */
             $image_url = Storage::put('projects', $data['image']);
@@ -214,6 +218,6 @@ class ProjectController extends Controller
         $project->save();
 
         // Ritorno alla pagina precedente
-        return redirect()->back()->with('type', $type)->with('message', "Il progetto è stato $action con sucesso");
+        return redirect()->back()->with('type', $type)->with('message', "Il progetto è stato $action con successo");
     }
 }

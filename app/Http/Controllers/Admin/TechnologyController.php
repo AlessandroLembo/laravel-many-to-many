@@ -26,6 +26,7 @@ class TechnologyController extends Controller
     public function create()
     {
         $technology = new Technology();
+
         return view('admin.technologies.create', compact('technology'));
     }
 

@@ -58,7 +58,7 @@
             <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary me-2 px-4 py-2">Back</a>    
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-3">
                 {{-- Stampo il paginatore --}}
                 {{ $types->links() }}
         </div>

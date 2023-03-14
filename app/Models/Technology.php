@@ -10,6 +10,8 @@ class Technology extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['label', 'color'];
+
     // Assegno la relazione con i progetti
     public function projects()
     {

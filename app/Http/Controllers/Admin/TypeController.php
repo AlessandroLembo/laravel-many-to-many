@@ -52,7 +52,7 @@ class TypeController extends Controller
 
         $type->save();
 
-        return to_route('admin.types.index')->with('type', 'success')->with('message', 'Nuovo type rgistrato con successo');
+        return to_route('admin.types.index')->with('type', 'success')->with('message', 'Nuovo type registrato con successo');
     }
 
     /**

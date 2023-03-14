@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class TechnologyController extends Controller
 {
@@ -13,7 +15,9 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        //
+        $technologies = Technology::simplePaginate(3);
+
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**
@@ -21,7 +25,8 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        $technology = new Technology();
+        return view('admin.technologies.create', compact('technology'));
     }
 
     /**
@@ -29,7 +34,24 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'label' => 'required|string|unique:types|max:15',
+            'color' => 'nullable|string',
+        ], [
+            'label.required' => 'La tecnologia deve avere un label',
+            'label.max' => 'La tecnologia deve avere massimo :max caratteri',
+            'label.unique' => 'Esiste già una tecnlogia con questo nome',
+        ]);
+
+        $data = $request->all();
+
+        $technology = new Technology();
+
+        $technology->fill($data);
+
+        $technology->save();
+
+        return to_route('admin.technologies.index')->with('type', 'success')->with('message', 'Nuova Tecnologia registrata con successo');
     }
 
     /**
@@ -37,7 +59,7 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        //
+        return to_route('admin.technologies.index');
     }
 
     /**
@@ -45,7 +67,7 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        return view('admin.technologies.edit', compact('technology'));
     }
 
     /**
@@ -53,7 +75,22 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-        //
+        $request->validate([
+            'label' => ['required', 'string', Rule::unique('technologies')->ignore($technology->id), 'max:15'],
+            'color' => 'nullable|string',
+        ], [
+            'label.required' => 'La tecnologia deve avere un label',
+            'label.max' => 'La tecnologia deve avere massimo :max caratteri',
+            'label.unique' => 'Esiste già una tecnlogia con questo nome',
+        ]);
+
+        $data = $request->all();
+
+        $technology->fill($data);
+        $technology->save();
+
+
+        return to_route('admin.technologies.index')->with('type', 'success')->with('message', 'Tecnologia modificata con successo');
     }
 
     /**
@@ -61,6 +98,8 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+
+        return to_route('admin.technologies.index')->with('type', 'success')->with('message', "Tecnologia $technology->label eliminato con successo");
     }
 }

@@ -9,6 +9,7 @@
             <div>
                 <a href="{{ route('admin.projects.create') }}" class="btn btn-success">Aggiungi Progetto</a>
                 <a href="{{ route('admin.types.create') }}" class="btn btn-secondary">Crea nuovo tipo</a>
+                <a href="{{ route('admin.technologies.create') }}" class="btn btn-dark">Crea nuova tecnologia</a>
             </div>
             
         </div>

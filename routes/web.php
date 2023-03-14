@@ -6,6 +6,8 @@ use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Guest\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\TechnologyController;
+
 
 
 
@@ -32,6 +34,9 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
 
     // Rotte dei Types incorporate con resource()
     Route::resource('types', TypeController::class);
+
+    // Rotte delle Technologies incorporate con resource()
+    Route::resource('technologies', TechnologyController::class);
 
     // Rotte dei project costruite singolarmente:
 
